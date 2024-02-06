@@ -1,6 +1,30 @@
+import { useState } from "react";
 import "./Header.css";
 
 const HeaderPart = () => {
+  // const [myStyle, setMyStyle] = useState({
+  //   color: "#503a3a",
+  //   backgroundColor: "#ffb885",
+  // });
+  // const changeColor = () => {
+  //   setMyStyle({
+  //     color: myStyle.color == "#503a3a" ? "#ffb885" : "#503a3a",
+  //     backgroundColor:
+  //       myStyle.backgroundColor == "#ffb885" ? "#503a3a" : "#ffb885",
+  //   });
+  // };
+
+  const [chngBtn1Color, setChngBtn1Color] = useState(false);
+  const [shiftArrw, setShiftArrw] = useState(false)
+
+  const changeBtn1Color = () => {
+    setChngBtn1Color(!(chngBtn1Color));
+  };
+
+  const shiftArrow = () => {
+    setShiftArrw(!(shiftArrw));
+  };
+
   return (
     <>
       <div className="home-Page">
@@ -16,14 +40,15 @@ const HeaderPart = () => {
           </div>
 
           <div className="button_CONTAINER">
-            <div className="btn1">A death has occured</div>
-            <div className="btn2">
+            <div className = { chngBtn1Color ? "btn1 scndClrComb" : "btn1"} onClick={() => changeBtn1Color()}>
+              A death has occured
+            </div>
+            <div className="btn2" onClick={() => shiftArrow()}>
               or plan for the future
-              <img className="btn2img" src="arrow.svg" alt="" />
+              <img className={ shiftArrw ? "btn2img shiftArrow" : "btn2img"} src="arrow.svg" alt="" />
             </div>
           </div>
-          <div className="imgContainer">
-          </div>
+          <div className="imgContainer"></div>
         </header>
       </div>
     </>

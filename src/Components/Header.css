@@ -88,7 +88,7 @@ header {
   flex-direction: column;
 
   background: transparent;
- 
+
   width: inherit;
   gap: 28px;
 
@@ -117,6 +117,19 @@ header {
   padding-right: 24px;
 }
 
+
+.scndClrComb {
+  animation: scndClrComb 0.3s ease forwards;
+}
+
+
+@keyframes scndClrComb {
+  to {
+    color: #ffb885;
+    background-color: #503a3a;
+  }
+}
+
 .btn2 {
   display: flex;
   flex-direction: row;
@@ -127,32 +140,36 @@ header {
 
   font-family: "matter-bold";
   font-size: 12.8px;
-
+  
+  
   .btn2img {
     width: 10px;
     height: 13px;
+
+  }
+}
+
+.shiftArrow{
+  animation: shiftArrw 0.3s ease forwards;
+}
+
+@keyframes shiftArrw {
+  to{
+    transform: translateX(6px);
   }
 }
 
 .imgContainer {
   position: absolute;
-  transform: translateY(calc( 16vw + 155.4px));
-  
+  transform: translateY(calc(16vw + 155.4px));
+
   width: inherit;
   height: 67.23vw;
 
   background: url("/AfterCopyIllustration.webp");
   background-size: cover;
   background-position: center;
-
 }
-
-
-
-
-
-
-
 
 @media screen and (min-width: 360px) and (max-width: 372px) {
   .main_title {
@@ -174,7 +191,7 @@ header {
     font-size: 44.8px;
   }
 
-  .imgContainer{
+  .imgContainer {
     transform: translateY(calc(15vw + 135px));
   }
 }
@@ -207,9 +224,7 @@ header {
     gap: 10px;
   }
 
-  
-  .imgContainer{
+  .imgContainer {
     transform: translateY(calc(15vw + 259px));
   }
-
 }
