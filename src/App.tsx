@@ -1,11 +1,11 @@
 import "./App.css";
-import HeaderPart from "./Components/Header";
+import HomePg from "./Components/HomePage/HomePg";
 
 function App() {
  
   return (
     <>
-    <HeaderPart/>
+    <HomePg/>
     </>
   );
 }

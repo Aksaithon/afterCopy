@@ -1,0 +1,77 @@
+@font-face {
+    font-family: "NibPro-regular";
+    src: url(NibPro-Regular.ttf);
+}
+
+@font-face {
+    font-family: "Grotesk-bold";
+    src: url(SpaceGrotesk-Bold.ttf);
+}
+
+@font-face {
+    font-family: "NibPro-light";
+    src: url(NibPro-Light.ttf);
+}
+
+.testimonial_CONTAINER{
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 17.5px 17.5px;
+
+    gap: 10px;
+
+}
+
+.testimonial_Title{
+
+    font-family: "NibPro-regular";
+    font-size: 38.4px;
+    font-weight: lighter;
+    color: #503a3a;
+    text-align: center;
+
+}
+
+.img_and_ratings{
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 18px;
+}
+
+.starsImg{
+    width: 200px;
+    height: 40px;
+}
+
+.avg_ratings{
+    font-family: "NibPro-light" ;
+    font-size: 19.2px;
+    letter-spacing: 1px;
+    color: #503a3a;
+}
+
+.testimonial_span{
+    font-family: "Grotesk-bold";
+    letter-spacing: -1px;
+    font-weight: bolder;
+    color: #45595e;
+}
+
+
+@media screen and (min-width: 767px) {
+    .testimonial_Title{
+        font-size: 72px;
+    }
+
+    .avg_ratings{
+        font-size: 24px;
+    }
+}

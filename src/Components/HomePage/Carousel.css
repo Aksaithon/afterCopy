@@ -1,0 +1,67 @@
+.carousel{
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+
+    align-items: center;
+    justify-content: center;
+
+
+
+    gap: 10px;
+
+    overflow: hidden;
+}
+
+.Btns{
+    position: absolute;
+
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+
+    justify-content:space-between;
+
+    padding: 0 15px 0 15px;
+
+}
+
+.leftBtn, .rightBtn{
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    
+    user-select: none;
+    
+    background-color: #ff89ba;
+    color: white;
+    
+    border-radius: 50%;
+
+    z-index: 1;
+}
+
+.leftBtn:hover, .rightBtn:hover{
+    background-color: #ffb8d6;
+}
+
+
+.cards_CONTAINER{
+    display: flex;
+    flex-direction: row;
+
+    gap: 8px;
+
+}
+
+.card{
+    width: 200px;
+    height: 300px;
+
+    border-radius: 20px;
+
+    background: #ff94fd;
+}

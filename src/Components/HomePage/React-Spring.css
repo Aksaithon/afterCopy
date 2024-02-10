@@ -1,0 +1,18 @@
+.box {
+  width: 80px;
+  height: 80px;
+
+  background: #50ffbf;
+
+  border-radius: 8px;
+}
+
+.shiftleft {
+  animation: shift 80s ease forwards;
+}
+
+@keyframes shift {
+  to {
+    transform: translateX(100px);
+  }
+}
