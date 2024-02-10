@@ -46,7 +46,10 @@
 
 .leftBtn:hover, .rightBtn:hover{
     background-color: #ffb8d6;
+    cursor:pointer;
 }
+
+
 
 
 .cards_CONTAINER{

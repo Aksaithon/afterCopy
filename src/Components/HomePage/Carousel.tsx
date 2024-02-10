@@ -1,39 +1,36 @@
 import { useSpring, animated } from "react-spring";
 import { useDrag } from "@use-gesture/react";
-
+import { useState } from "react";
 import "./Carousel.css";
 
 const Carousel = () => {
   const [{ x }, api] = useSpring(() => ({ x: 0 }));
+  const [down, setDown] = useState(false);
 
-  function shftRight(){
-
+  function shftRight() {
     api.start({
-      to: {x: x.get() + 500},
-    })
+      to: { x: x.get() + 500 },
+    });
+  }
 
-  };
-
-  function shftLeft(){
-
+  function shftLeft() {
     api.start({
-      to: {x: x.get() - 500},
-    })
-
-  };
+      to: { x: x.get() - 500 },
+    });
+  }
   const bind = useDrag(({ down, offset: [mx] }) => {
     api.start({
       x: mx,
       immediate: false,
     });
+    setDown(down)
   });
-
 
   return (
     <>
       <div className="carousel">
         <div className="Btns">
-          <div className="leftBtn" onClick={() => shftLeft()} >
+          <div className="leftBtn" onClick={() => shftLeft()}>
             <img
               src="arrow copy.svg"
               alt="left"
@@ -44,7 +41,7 @@ const Carousel = () => {
               }}
             />
           </div>
-          <div className="rightBtn" onClick={() => shftRight()} >
+          <div className="rightBtn" onClick={() => shftRight()}>
             <img
               src="arrow copy.svg"
               alt="right"
@@ -56,6 +53,7 @@ const Carousel = () => {
           {...bind()}
           style={{
             x,
+            cursor: down ? "grabbing" : "grab",
           }}
           className={"animDiv"}
         >
