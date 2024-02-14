@@ -1,168 +1,112 @@
 import { useSpring, animated } from "react-spring";
 import { useDrag } from "@use-gesture/react";
-import { useState } from "react";
+import React, { useState } from "react";
+
 import "./Carousel.css";
 
-const Carousel = () => {
-  const [{ x }, api] = useSpring(() => ({ x: 0 }));
-  const [down, setDown] = useState(false);
+const Carousel: React.FC = () => {
+  const [springs, api] = useSpring(() => ({ from: {x: 2275, y: -65} }));
+  const [springs2, api2] = useSpring(() => ({ from: {x: 2275, y: -65} }));
+  //start point {x: 4170, y: -350}; center point {x: 2275, y: -65};  end point { x: 380, y: -350 }
 
-  function shftRight() {
-    api.start({
-      to: { x: x.get() + 500 },
-    });
-  }
+  //TO start from--
+  const [pos, setPos] = useState({xPos: springs.x.get() , yPos: springs.y.get() })
+  const [pos2, setPos2] = useState({xPos: springs2.x.get() , yPos: springs2.y.get() })
 
-  function shftLeft() {
-    api.start({
-      to: { x: x.get() - 500 },
-    });
-  }
-  const bind = useDrag(({ down, offset: [mx] }) => {
-    api.start({
-      x: mx,
-      immediate: false,
-    });
-    setDown(down)
-  });
 
+
+
+  const bind = useDrag(({ down, offset: [mx, my] }) => {
+    api.start({
+      x: mx >= 380 ? (mx <= 4170 ? mx : 4170) : 380,
+      y:
+        mx <= 4170 && mx >= 380
+          ? -0.00008240864567896775 * (mx * mx) +
+            0.38072794303683094 * mx +
+            -504.63982361658293
+          : -350,
+      immediate: down,
+    });
+
+    setPos({xPos: mx ,yPos: my })
+  }, {from: [pos.xPos, pos.yPos]});
+
+  const bind2 = useDrag(({ down, offset: [mx, my] }) => {
+    api2.start({
+      x: mx >= 380 ? (mx <= 4170 ? mx : 4170) : 380,
+      y:
+        mx <= 4170 && mx >= 380
+          ? -0.00008240864567896775 * (mx * mx) +
+            0.38072794303683094 * mx +
+            -504.63982361658293
+          : -350,
+      immediate: down,
+    });
+
+    setPos2({xPos: mx ,yPos: my })
+  }, {from: [pos2.xPos, pos2.yPos]});
+  
   return (
     <>
-      <div className="carousel">
-        <div className="Btns">
-          <div className="leftBtn" onClick={() => shftLeft()}>
-            <img
-              src="arrow copy.svg"
-              alt="left"
-              style={{
-                width: "10px",
-                height: "10px",
-                transform: "rotateY(180deg)",
-              }}
-            />
-          </div>
-          <div className="rightBtn" onClick={() => shftRight()}>
-            <img
-              src="arrow copy.svg"
-              alt="right"
-              style={{ width: "10px", height: "10px" }}
-            />
-          </div>
-        </div>
+      <div className="carousel_Component">
         <animated.div
           {...bind()}
+          className={"customer_review_card"}
           style={{
-            x,
-            cursor: down ? "grabbing" : "grab",
+            ...springs,
+            backgroundColor: "#d8fff7",
+            backgroundSize: "cover",
+            touchAction: "none",
           }}
-          className={"animDiv"}
         >
-          <div className="cards_CONTAINER">
-            <div
+          <div className="review_text">
+            The process was so easy and the representative was knowledgeable,
+            patient and kind. Definitely would recommend this company to
+            everyone.
+          </div>
+          <div className="customer_info">
+            <img
+              src="Kathy_CoverPhoto.webp"
+              alt="coverphoto"
+              className="customer_coverphoto"
               style={{
-                backgroundImage: `url('/card1.svg')`,
-                backgroundSize: "cover",
+                width: "50.67px",
+                height: "50.67px",
+                borderRadius: "50%",
+                userSelect: "none",
               }}
-              className="card card1"
-            ></div>
-            <div
+            />
+            <div className="customer_name">Kathy</div>
+          </div>
+        </animated.div>
+        <animated.div
+          {...bind2()}
+          className={"customer_review_card"}
+          style={{
+            ...springs2,
+            backgroundColor: "#d8ffd7",
+            backgroundSize: "cover",
+            touchAction: "none",
+          }}
+        >
+          <div className="review_text">
+            The process was so easy and the representative was knowledgeable,
+            patient and kind. Definitely would recommend this company to
+            everyone.
+          </div>
+          <div className="customer_info">
+            <img
+              src="Kathy_CoverPhoto.webp"
+              alt="coverphoto"
+              className="customer_coverphoto"
               style={{
-                backgroundImage: `url('/card2.svg')`,
-                backgroundSize: "cover",
+                width: "50.67px",
+                height: "50.67px",
+                borderRadius: "50%",
+                userSelect: "none",
               }}
-              className="card card2"
-            ></div>
-            <div
-              style={{
-                backgroundImage: `url('/card3.svg')`,
-                backgroundSize: "cover",
-              }}
-              className="card card3"
-            ></div>
-            <div
-              style={{
-                backgroundImage: `url('/card4.svg')`,
-                backgroundSize: "cover",
-              }}
-              className="card card4"
-            ></div>
-            <div
-              style={{
-                backgroundImage: `url('/card5.svg')`,
-                backgroundSize: "cover",
-              }}
-              className="card card5"
-            ></div>
-            <div
-              style={{
-                backgroundImage: `url('/card6.svg')`,
-                backgroundSize: "cover",
-              }}
-              className="card card6"
-            ></div>
-            <div
-              style={{
-                backgroundImage: `url('/card7.svg')`,
-                backgroundSize: "cover",
-              }}
-              className="card card7"
-            ></div>
-            <div
-              style={{
-                backgroundImage: `url('/card8.svg')`,
-                backgroundSize: "cover",
-              }}
-              className="card card8"
-            ></div>
-            <div
-              style={{
-                backgroundImage: `url('/card9.svg')`,
-                backgroundSize: "cover",
-              }}
-              className="card card9"
-            ></div>
-            <div
-              style={{
-                backgroundImage: `url('/card10.svg')`,
-                backgroundSize: "cover",
-              }}
-              className="card card10"
-            ></div>
-            <div
-              style={{
-                backgroundImage: `url('/card11.svg')`,
-                backgroundSize: "cover",
-              }}
-              className="card card11"
-            ></div>
-            <div
-              style={{
-                backgroundImage: `url('/card12.svg')`,
-                backgroundSize: "cover",
-              }}
-              className="card card12"
-            ></div>
-            <div
-              style={{
-                backgroundImage: `url('/card13.svg')`,
-                backgroundSize: "cover",
-              }}
-              className="card card13"
-            ></div>
-            <div
-              style={{
-                backgroundImage: `url('/card14.svg')`,
-                backgroundSize: "cover",
-              }}
-              className="card card14"
-            ></div>
-            <div
-              style={{
-                backgroundImage: `url('/card15.svg')`,
-                backgroundSize: "cover",
-              }}
-              className="card card15"
-            ></div>
+            />
+            <div className="customer_name">Kathy</div>
           </div>
         </animated.div>
       </div>

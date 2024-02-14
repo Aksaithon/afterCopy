@@ -1,70 +1,70 @@
-.carousel{
-    display: flex;
-    flex-direction: row;
-    width: 100vw;
-
-    align-items: center;
-    justify-content: center;
-
-
-
-    gap: 10px;
-
-    overflow: hidden;
+@font-face {
+  font-family: "nibPro-Regular";
+  src: url(NibPro-Regular.ttf);
 }
 
-.Btns{
-    position: absolute;
-
-    display: flex;
-    flex-direction: row;
-    width: 100vw;
-
-    justify-content:space-between;
-
-    padding: 0 15px 0 15px;
-
+@font-face {
+  font-family: "matter-regular";
+  src: url(SpaceGrotesk-Regular.ttf);
 }
 
-.leftBtn, .rightBtn{
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100px;
-    height: 100px;
-    
-    user-select: none;
-    
-    background-color: #ff89ba;
-    color: white;
-    
-    border-radius: 50%;
+.carousel_Component {
+  width: 4928px;
+  height: 500px;
 
-    z-index: 1;
+  display: flex;
+  flex-direction: row;
+
+  /* background-color: #b3ffb2; */
 }
 
-.leftBtn:hover, .rightBtn:hover{
-    background-color: #ffb8d6;
-    cursor:pointer;
+.customer_review_card {
+
+  position: absolute;
+
+  display: flex;
+  flex-direction: column;
+  height: 376px;
+
+
+  align-items: flex-start;
+  justify-content: space-between;
+
+  padding: 40px;
+
+  border-radius: 26.4985px;
+
+  user-select: none;
 }
 
 
 
+.review_text {
+  color: #503a3a;
+  font-family: "matter-regular";
+  font-size: 14px;
 
-.cards_CONTAINER{
-    display: flex;
-    flex-direction: row;
-
-    gap: 8px;
+  line-height: 26px;
+  text-align: left;
+  width: 256px;
 
 }
 
-.card{
-    width: 200px;
-    height: 300px;
+.customer_info {
+  display: flex;
+  flex-direction: row;
 
-    border-radius: 20px;
+  width: inherit;
 
-    background: #ff94fd;
+  align-items: center;
+
+  gap: 16px;
+
+  .customer_name {
+    font-family: "nibPro-Regular";
+    font-size: 24px;
+
+    line-height: 60px;
+
+  }
 }

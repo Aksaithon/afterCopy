@@ -1,9 +1,8 @@
 import Header from "./Header";
 import Testimonial from "./Testimonial";
 import "./HomePg.css"
-import Carousel from "./Carousel";
 import MySpringAnim from "./React-Spring";
-import ReactGesturesWithSpring from "./React-Gestures-Spring";
+import Carousel from "./Carousel";
 
 const HomePg = () => {
   return (
@@ -11,9 +10,9 @@ const HomePg = () => {
       <div className="FullHomePage">
         <Header />
         <Testimonial />
-        <MySpringAnim />
+        {/* <MySpringAnim /> */}
         <Carousel/>
-        <ReactGesturesWithSpring />
+        {/* <MySpringAnim /> */}
       </div>
     </>
   );
