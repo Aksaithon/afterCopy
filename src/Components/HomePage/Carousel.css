@@ -19,13 +19,12 @@
 }
 
 .customer_review_card {
-
   position: absolute;
 
   display: flex;
   flex-direction: column;
   height: 376px;
-
+  /* width: 336px */
 
   align-items: flex-start;
   justify-content: space-between;
@@ -37,8 +36,6 @@
   user-select: none;
 }
 
-
-
 .review_text {
   color: #503a3a;
   font-family: "matter-regular";
@@ -47,7 +44,6 @@
   line-height: 26px;
   text-align: left;
   width: 256px;
-
 }
 
 .customer_info {
@@ -65,6 +61,5 @@
     font-size: 24px;
 
     line-height: 60px;
-
   }
 }

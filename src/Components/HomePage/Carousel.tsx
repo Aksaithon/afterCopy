@@ -5,55 +5,74 @@ import React, { useState } from "react";
 import "./Carousel.css";
 
 const Carousel: React.FC = () => {
-  const [springs, api] = useSpring(() => ({ from: {x: 2275, y: -65} }));
-  const [springs2, api2] = useSpring(() => ({ from: {x: 2275, y: -65} }));
-  //start point {x: 4170, y: -350}; center point {x: 2275, y: -65};  end point { x: 380, y: -350 }
+  const [springs1, api1] = useSpring(() => ({ from: { x: 4170, y: -350 } }));
+  const [springs2, api2] = useSpring(() => ({ from: { x: 3834, y: -298.928 } }));
+  //start point {x: 4170, y: -350}; center point {x: 2295, y: -65};  end point { x: 450, y: -350 }
 
   //TO start from--
-  const [pos, setPos] = useState({xPos: springs.x.get() , yPos: springs.y.get() })
-  const [pos2, setPos2] = useState({xPos: springs2.x.get() , yPos: springs2.y.get() })
+  const [pos1, setPos1] = useState({
+    xPos1: springs1.x.get()
+  });
+  const [pos2, setPos2] = useState({
+    xPos2: springs2.x.get()
+  });
 
+  const bind1 = useDrag(
+    ({ down, offset: [mx] }) => {
+      api1.start({
+        x:
+          mx >= 380
+            ? mx <= 4170
+              ? mx
+              : 4170 /*to make anim under boundery*/
+            : 380 /*to make anim under boundery*/,
+        y:
+          4170 >= mx && mx >= 2295 /*decrease phase*/
+            ? -0.152 * (mx - 4170) - 350
+            : 2295 >= mx && mx >= 380 /*increase phase*/
+            ? 0.1488250652741514 * (mx - 2295) - 65
+            : -350,
+        immediate: down,
+      });
 
+      setPos1({ xPos1: mx });
+      setPos2({xPos2: mx-336})
+    },
+    { from: [pos1.xPos1, -350] }
+  );
 
+  const bind2 = useDrag(
+    ({ down, offset: [mx] }) => {
+      api2.start({
+        x:
+          mx >= 380
+            ? mx <= 4170
+              ? mx
+              : 4170 /*to make anim under boundery*/
+            : 380 /*to make anim under boundery*/,
+        y:
+          4170 >= mx && mx >= 2295 /*decrease phase*/
+            ? -0.152 * (mx - 4170) - 350
+            : 2295 >= mx && mx >= 380 /*increase phase*/
+            ? 0.1488250652741514 * (mx - 2295) - 65
+            : -350,
+        immediate: down,
+      });
 
-  const bind = useDrag(({ down, offset: [mx, my] }) => {
-    api.start({
-      x: mx >= 380 ? (mx <= 4170 ? mx : 4170) : 380,
-      y:
-        mx <= 4170 && mx >= 380
-          ? -0.00008240864567896775 * (mx * mx) +
-            0.38072794303683094 * mx +
-            -504.63982361658293
-          : -350,
-      immediate: down,
-    });
+      setPos2({ xPos2: mx });
+      setPos1({xPos1: mx+336})
+    },
+    { from: [pos2.xPos2, -350] }
+  );
 
-    setPos({xPos: mx ,yPos: my })
-  }, {from: [pos.xPos, pos.yPos]});
-
-  const bind2 = useDrag(({ down, offset: [mx, my] }) => {
-    api2.start({
-      x: mx >= 380 ? (mx <= 4170 ? mx : 4170) : 380,
-      y:
-        mx <= 4170 && mx >= 380
-          ? -0.00008240864567896775 * (mx * mx) +
-            0.38072794303683094 * mx +
-            -504.63982361658293
-          : -350,
-      immediate: down,
-    });
-
-    setPos2({xPos: mx ,yPos: my })
-  }, {from: [pos2.xPos, pos2.yPos]});
-  
   return (
     <>
       <div className="carousel_Component">
         <animated.div
-          {...bind()}
+          {...bind1()}
           className={"customer_review_card"}
           style={{
-            ...springs,
+            ...springs1,
             backgroundColor: "#d8fff7",
             backgroundSize: "cover",
             touchAction: "none",
@@ -76,7 +95,7 @@ const Carousel: React.FC = () => {
                 userSelect: "none",
               }}
             />
-            <div className="customer_name">Kathy</div>
+            <div className="customer_name">Card1</div>
           </div>
         </animated.div>
         <animated.div
@@ -106,7 +125,7 @@ const Carousel: React.FC = () => {
                 userSelect: "none",
               }}
             />
-            <div className="customer_name">Kathy</div>
+            <div className="customer_name">Card2</div>
           </div>
         </animated.div>
       </div>
@@ -115,3 +134,6 @@ const Carousel: React.FC = () => {
 };
 
 export default Carousel;
+
+
+
