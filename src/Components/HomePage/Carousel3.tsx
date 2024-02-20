@@ -83,7 +83,7 @@ const Carousel3: React.FC = () => {
   }
 
   // function whatsCardIndex(thisIndex: string) {
-  //   return whichIndexToDrag(parseInt(thisIndex));
+  //   return whichIndexToDrag(parseInt(thisIndex))
   // }
 
   const bindGesture = useDrag(
@@ -92,9 +92,19 @@ const Carousel3: React.FC = () => {
 
       console.log();
 
+      //ONE massive LOGIC of all time 😲🤯
+
       const newX =
         mx >= endPoint && mx <= startPoint
-          ? mx
+          ? mx >= centerPoint && mx <= centerPoint + 336 / 2 && !down
+            ? centerPoint
+            : mx <= centerPoint && mx >= centerPoint - 336 / 2 && !down
+            ? centerPoint
+            : mx >= centerPoint + 336 / 2 && mx <= centerPoint + 336 && !down
+            ? centerPoint + 336
+            : mx <= centerPoint - 336 / 2 && mx >= centerPoint - 336 && !down
+            ? centerPoint - 336
+            : mx
           : mx < endPoint
           ? endPoint
           : mx > startPoint
@@ -147,6 +157,7 @@ const Carousel3: React.FC = () => {
         }
       });
       setDown(down);
+      console.log("down =>>>>>>>>>>>>>>>>>>>>>>  ", down);
     },
     {
       from: [
