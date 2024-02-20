@@ -9,20 +9,40 @@ const Carousel3: React.FC = () => {
   const [thisIndexToDrag, whichIndexToDrag] = useState<number>(0);
   const thisIndexToDragRef = useRef(0);
 
-  const [springs, setSprings] = useSprings(2, (index) => ({
-    x: 4170,
-    y: -350,
+  /* start startPoint, -350  center centerPoint, -55  end endPoint, -350  */
+  function setCenterPoint(): number {
+    const screenWidth = window.innerWidth;
+    const factor =
+      screenWidth < 1400 ? 0.36678 : screenWidth < 1600 ? 0.38678 : 0.39878;
+    return screenWidth * factor;
+  }
+
+  function setStart_and_End_Point(centerPoint: number): number[] {
+    const startPoint = centerPoint + 1795;
+    const endPoint = centerPoint - 1795;
+
+    return [startPoint, endPoint];
+  }
+
+  const centerPoint = setCenterPoint();
+
+  const [startPoint, endPoint] = setStart_and_End_Point(centerPoint);
+
+  const [springs, setSprings] = useSprings(7, (index) => ({
+    x: centerPoint,
+    y: -55,
     backgroundColor: index === 0 ? "#d8fff7" : "#d8ffd7",
     immediate: true,
   }));
 
   function setDepth(accordingToThisX: number) {
     const depth =
-      4170 >= accordingToThisX && accordingToThisX >= 2295 /* decresion zone */
-        ? -0.152 * (accordingToThisX - 4170) - 350
-        : 2295 >= accordingToThisX &&
-          accordingToThisX >= 380 /* incresion zone */
-        ? 0.1488250652741514 * (accordingToThisX - 2295) - 65
+      startPoint >= accordingToThisX &&
+      accordingToThisX >= centerPoint /* decresion zone */
+        ? -0.1643454038997214 * (accordingToThisX - startPoint) - 350
+        : centerPoint >= accordingToThisX &&
+          accordingToThisX >= endPoint /* incresion zone */
+        ? 0.1643454038997214 * (accordingToThisX - centerPoint) - 55
         : -350;
 
     return depth;
@@ -33,13 +53,13 @@ const Carousel3: React.FC = () => {
     currCardX_Pos: number,
     currCardIndex: number
   ): number {
-    const X_pos = currCardX_Pos + (currCardIndex - index) * 376;
+    const X_pos = currCardX_Pos + (currCardIndex - index) * 375;
 
-    if (X_pos > 4170) {
-      return 4170;
+    if (X_pos > startPoint) {
+      return startPoint;
     }
-    if (X_pos < 380) {
-      return 380;
+    if (X_pos < endPoint) {
+      return endPoint;
     }
 
     return X_pos;
@@ -50,13 +70,13 @@ const Carousel3: React.FC = () => {
     currCardX_Pos: number,
     currCardIndex: number
   ): number {
-    const X_pos = currCardX_Pos - (index - currCardIndex) * 376;
+    const X_pos = currCardX_Pos - (index - currCardIndex) * 375;
 
-    if (X_pos > 4170) {
-      return 4170;
+    if (X_pos > startPoint) {
+      return startPoint;
     }
-    if (X_pos < 380) {
-      return 380;
+    if (X_pos < endPoint) {
+      return endPoint;
     }
 
     return X_pos;
@@ -73,7 +93,13 @@ const Carousel3: React.FC = () => {
       console.log();
 
       const newX =
-        mx >= 380 && mx <= 4170 ? mx : mx < 380 ? 380 : mx > 4170 ? 4170 : 0;
+        mx >= endPoint && mx <= startPoint
+          ? mx
+          : mx < endPoint
+          ? endPoint
+          : mx > startPoint
+          ? startPoint
+          : 0;
       const newY = setDepth(newX);
 
       console.log();
@@ -119,8 +145,8 @@ const Carousel3: React.FC = () => {
             };
           }
         }
-        setDown(down);
       });
+      setDown(down);
     },
     {
       from: [
@@ -141,7 +167,6 @@ const Carousel3: React.FC = () => {
           style={{
             ...springs[0],
             backgroundSize: "cover",
-            touchAction: "none",
             cursor: down ? "grabbing" : "grab",
           }}
           onClick={(e) => {
@@ -177,7 +202,6 @@ const Carousel3: React.FC = () => {
           style={{
             ...springs[1],
             backgroundSize: "cover",
-            touchAction: "none",
             cursor: down ? "grabbing" : "grab",
           }}
           onClick={(e) => {
@@ -203,6 +227,146 @@ const Carousel3: React.FC = () => {
               }}
             />
             <div className="customer_name">{`Card${1}`}</div>
+          </div>
+        </animated.div>
+        <animated.div
+          // Pass the index of the card to the gesture hook
+          {...bindGesture(2)}
+          id={"2"} // Make sure to provide a unique id for each item in the list
+          className={"customer_review_card"}
+          style={{
+            ...springs[2],
+            backgroundSize: "cover",
+            cursor: down ? "grabbing" : "grab",
+          }}
+          onClick={(e) => {
+            whichIndexToDrag(parseInt(e.currentTarget.id));
+            thisIndexToDragRef.current = parseInt(e.currentTarget.id);
+          }}
+        >
+          <div className="review_text">
+            The process was so easy and the representative was knowledgeable,
+            patient and kind. Definitely would recommend this company to
+            everyone.
+          </div>
+          <div className="customer_info">
+            <img
+              src="Kathy_CoverPhoto.webp"
+              alt="coverphoto"
+              className="customer_coverphoto"
+              style={{
+                width: "50.67px",
+                height: "50.67px",
+                borderRadius: "50%",
+                userSelect: "none",
+              }}
+            />
+            <div className="customer_name">{`Card${2}`}</div>
+          </div>
+        </animated.div>
+        <animated.div
+          // Pass the index of the card to the gesture hook
+          {...bindGesture(3)}
+          id={"3"} // Make sure to provide a unique id for each item in the list
+          className={"customer_review_card"}
+          style={{
+            ...springs[3],
+            backgroundSize: "cover",
+            cursor: down ? "grabbing" : "grab",
+          }}
+          onClick={(e) => {
+            whichIndexToDrag(parseInt(e.currentTarget.id));
+            thisIndexToDragRef.current = parseInt(e.currentTarget.id);
+          }}
+        >
+          <div className="review_text">
+            The process was so easy and the representative was knowledgeable,
+            patient and kind. Definitely would recommend this company to
+            everyone.
+          </div>
+          <div className="customer_info">
+            <img
+              src="Kathy_CoverPhoto.webp"
+              alt="coverphoto"
+              className="customer_coverphoto"
+              style={{
+                width: "50.67px",
+                height: "50.67px",
+                borderRadius: "50%",
+                userSelect: "none",
+              }}
+            />
+            <div className="customer_name">{`Card${3}`}</div>
+          </div>
+        </animated.div>
+        <animated.div
+          // Pass the index of the card to the gesture hook
+          {...bindGesture(4)}
+          id={"4"} // Make sure to provide a unique id for each item in the list
+          className={"customer_review_card"}
+          style={{
+            ...springs[4],
+            backgroundSize: "cover",
+            cursor: down ? "grabbing" : "grab",
+          }}
+          onClick={(e) => {
+            whichIndexToDrag(parseInt(e.currentTarget.id));
+            thisIndexToDragRef.current = parseInt(e.currentTarget.id);
+          }}
+        >
+          <div className="review_text">
+            The process was so easy and the representative was knowledgeable,
+            patient and kind. Definitely would recommend this company to
+            everyone.
+          </div>
+          <div className="customer_info">
+            <img
+              src="Kathy_CoverPhoto.webp"
+              alt="coverphoto"
+              className="customer_coverphoto"
+              style={{
+                width: "50.67px",
+                height: "50.67px",
+                borderRadius: "50%",
+                userSelect: "none",
+              }}
+            />
+            <div className="customer_name">{`Card${4}`}</div>
+          </div>
+        </animated.div>
+        <animated.div
+          // Pass the index of the card to the gesture hook
+          {...bindGesture(5)}
+          id={"5"} // Make sure to provide a unique id for each item in the list
+          className={"customer_review_card"}
+          style={{
+            ...springs[5],
+            backgroundSize: "cover",
+            cursor: down ? "grabbing" : "grab",
+          }}
+          onClick={(e) => {
+            whichIndexToDrag(parseInt(e.currentTarget.id));
+            thisIndexToDragRef.current = parseInt(e.currentTarget.id);
+          }}
+        >
+          <div className="review_text">
+            The process was so easy and the representative was knowledgeable,
+            patient and kind. Definitely would recommend this company to
+            everyone.
+          </div>
+          <div className="customer_info">
+            <img
+              src="Kathy_CoverPhoto.webp"
+              alt="coverphoto"
+              className="customer_coverphoto"
+              style={{
+                width: "50.67px",
+                height: "50.67px",
+                borderRadius: "50%",
+                userSelect: "none",
+              }}
+            />
+            <div className="customer_name">{`Card${5}`}</div>
           </div>
         </animated.div>
       </div>

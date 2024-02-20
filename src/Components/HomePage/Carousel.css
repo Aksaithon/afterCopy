@@ -9,13 +9,17 @@
 }
 
 .carousel_Component {
-  width: 4928px;
+  position: relative;
+  width: 100vw;
   height: 500px;
 
+  /* display: inline-block; */
   display: flex;
   flex-direction: row;
 
   /* background-color: #b3ffb2; */
+
+  /* overflow: hidden; */
 }
 
 .customer_review_card {
@@ -23,6 +27,7 @@
 
   display: flex;
   flex-direction: column;
+  width: fit-content;
   height: 376px;
   /* width: 336px */
 
@@ -31,7 +36,7 @@
 
   padding: 40px;
 
-  border-radius: 26.4985px;
+  border-radius: 22.4985px;
 
   user-select: none;
 }
