@@ -1,20 +1,17 @@
-import { useSprings, animated } from "react-spring";
-import { useDrag } from "@use-gesture/react";
+import { useSprings, animated, SpringValue } from "react-spring";
+import { useGesture } from "@use-gesture/react";
 import React, { useState, useRef } from "react";
 
 import "./Carousel.css";
-
 const Carousel3: React.FC = () => {
   const [down, setDown] = useState(false);
-  const [thisIndexToDrag, whichIndexToDrag] = useState<number>(0);
-  const thisIndexToDragRef = useRef(0);
+
+  let Card_Pos = 0;
+  const cardSpring_Pos = useRef(0);
 
   /* start startPoint, -350  center centerPoint, -55  end endPoint, -350  */
   function setCenterPoint(): number {
-    const screenWidth = window.innerWidth;
-    const factor =
-      screenWidth < 1400 ? 0.36678 : screenWidth < 1600 ? 0.38678 : 0.39878;
-    return screenWidth * factor;
+    return 0;
   }
 
   function setStart_and_End_Point(centerPoint: number): number[] {
@@ -28,10 +25,9 @@ const Carousel3: React.FC = () => {
 
   const [startPoint, endPoint] = setStart_and_End_Point(centerPoint);
 
-  const [springs, setSprings] = useSprings(7, (index) => ({
+  const [springs, setSprings] = useSprings(15, () => ({
     x: centerPoint,
-    y: -55,
-    backgroundColor: index === 0 ? "#d8fff7" : "#d8ffd7",
+    y: 0,
     immediate: true,
   }));
 
@@ -39,10 +35,10 @@ const Carousel3: React.FC = () => {
     const depth =
       startPoint >= accordingToThisX &&
       accordingToThisX >= centerPoint /* decresion zone */
-        ? -0.1643454038997214 * (accordingToThisX - startPoint) - 350
+        ? -0.1949860724233983 * (accordingToThisX - startPoint) - 350
         : centerPoint >= accordingToThisX &&
           accordingToThisX >= endPoint /* incresion zone */
-        ? 0.1643454038997214 * (accordingToThisX - centerPoint) - 55
+        ? 0.1949860724233983 * (accordingToThisX - centerPoint) - 0
         : -350;
 
     return depth;
@@ -82,44 +78,47 @@ const Carousel3: React.FC = () => {
     return X_pos;
   }
 
-  // function whatsCardIndex(thisIndex: string) {
-  //   return whichIndexToDrag(parseInt(thisIndex))
-  // }
-
-  const bindGesture = useDrag(
-    ({ args: [currCardIndex], down, offset: [mx] }) => {
-      console.log("fist line : ", thisIndexToDrag);
-
-      console.log();
+  const bindGesture = useGesture({
+    onDragStart: ({ args: currCardIndex }) => {
+      cardSpring_Pos.current = springs[currCardIndex].x.get();
 
       //ONE massive LOGIC of all time 😲🤯
 
-      const newX =
-        mx >= endPoint && mx <= startPoint
-          ? mx >= centerPoint && mx <= centerPoint + 336 / 2 && !down
+      const currX_Pos =
+        cardSpring_Pos.current >= endPoint &&
+        cardSpring_Pos.current <= startPoint
+          ? cardSpring_Pos.current >= centerPoint &&
+            cardSpring_Pos.current <= centerPoint + 336 / 2 &&
+            !down
             ? centerPoint
-            : mx <= centerPoint && mx >= centerPoint - 336 / 2 && !down
+            : cardSpring_Pos.current <= centerPoint &&
+              cardSpring_Pos.current >= centerPoint - 336 / 2 &&
+              !down
             ? centerPoint
-            : mx >= centerPoint + 336 / 2 && mx <= centerPoint + 336 && !down
-            ? centerPoint + 336
-            : mx <= centerPoint - 336 / 2 && mx >= centerPoint - 336 && !down
-            ? centerPoint - 336
-            : mx
-          : mx < endPoint
+            : cardSpring_Pos.current >= centerPoint + 336 / 2 &&
+              cardSpring_Pos.current <= centerPoint + 336 &&
+              !down
+            ? centerPoint + 375
+            : cardSpring_Pos.current <= centerPoint - 336 / 2 &&
+              cardSpring_Pos.current >= centerPoint - 336 &&
+              !down
+            ? centerPoint - 375
+            : cardSpring_Pos.current
+          : cardSpring_Pos.current < endPoint
           ? endPoint
-          : mx > startPoint
+          : cardSpring_Pos.current > startPoint
           ? startPoint
           : 0;
-      const newY = setDepth(newX);
+      const newY = setDepth(currX_Pos);
 
       console.log();
 
       console.log();
 
-      setSprings((index) => {
+      setSprings.start((index) => {
         if (index === currCardIndex) {
           return {
-            x: newX,
+            x: currX_Pos,
             y: newY,
             immediate: down,
           };
@@ -128,7 +127,7 @@ const Carousel3: React.FC = () => {
             // For right cards
             const rightCardX_Pos = setRight_CardPositions(
               index,
-              newX,
+              currX_Pos,
               currCardIndex
             );
             const rightCardY_Pos = setDepth(rightCardX_Pos);
@@ -143,7 +142,7 @@ const Carousel3: React.FC = () => {
             // For left cards
             const leftCardX_Pos = setLeft_CardPositions(
               index,
-              newX,
+              currX_Pos,
               currCardIndex
             );
             const leftCardY_Pos = setDepth(leftCardX_Pos);
@@ -157,230 +156,279 @@ const Carousel3: React.FC = () => {
         }
       });
       setDown(down);
-      console.log("down =>>>>>>>>>>>>>>>>>>>>>>  ", down);
+      console.log();
     },
-    {
-      from: [
-        springs[thisIndexToDragRef.current].x.get(),
-        springs[thisIndexToDragRef.current].y.get(),
-      ],
-    }
-  );
+    onDrag: ({ args: [currCardIndex], down, movement: [mx] }) => {
+      Card_Pos = cardSpring_Pos.current + mx;
+
+      //ONE massive LOGIC of all time 😲🤯
+
+      const currX_Pos =
+        Card_Pos >= endPoint && Card_Pos <= startPoint
+          ? Card_Pos >= centerPoint &&
+            Card_Pos <= centerPoint + 336 / 2 &&
+            !down
+            ? centerPoint
+            : Card_Pos <= centerPoint &&
+              Card_Pos >= centerPoint - 336 / 2 &&
+              !down
+            ? centerPoint
+            : Card_Pos >= centerPoint + 336 / 2 &&
+              Card_Pos <= centerPoint + 336 &&
+              !down
+            ? centerPoint + 375
+            : Card_Pos <= centerPoint - 336 / 2 &&
+              Card_Pos >= centerPoint - 336 &&
+              !down
+            ? centerPoint - 375
+            : Card_Pos
+          : Card_Pos < endPoint
+          ? endPoint
+          : Card_Pos > startPoint
+          ? startPoint
+          : 0;
+      const newY = setDepth(currX_Pos);
+
+      console.log();
+
+      console.log();
+
+      setSprings.start((index) => {
+        if (index === currCardIndex) {
+          return {
+            x: currX_Pos,
+            y: newY,
+            immediate: down,
+          };
+        } else {
+          // For right cards
+          if (index < currCardIndex) {
+            const rightCardX_Pos = setRight_CardPositions(
+              index,
+              currX_Pos,
+              currCardIndex
+            );
+            const rightCardY_Pos = setDepth(rightCardX_Pos);
+
+            return {
+              x: rightCardX_Pos,
+              y: rightCardY_Pos,
+              immediate: down,
+            };
+          }
+          // For left cards
+          if (index > currCardIndex) {
+            const leftCardX_Pos = setLeft_CardPositions(
+              index,
+              currX_Pos,
+              currCardIndex
+            );
+            const leftCardY_Pos = setDepth(leftCardX_Pos);
+
+            return {
+              x: leftCardX_Pos,
+              y: leftCardY_Pos,
+              immediate: down,
+            };
+          }
+        }
+      });
+      setDown(down);
+      console.log();
+    },
+    onDragEnd: () => {
+      springs.map((positions: { x: SpringValue<number> }, mapIndex) => {
+        const currCardX_Pos = positions.x.get();
+        const logicalX_pos1 = centerPoint;
+        const logicalX_pos2 = centerPoint + 375;
+        const logicalX_pos3 = centerPoint - 375;
+
+        if (
+          (currCardX_Pos >= centerPoint &&
+            currCardX_Pos <= centerPoint + 336 / 2) ||
+          (currCardX_Pos <= centerPoint &&
+            currCardX_Pos >= centerPoint - 336 / 2)
+        ) {
+          setSprings.start((springIndex) => {
+            if (springIndex == mapIndex) {
+              return {
+                x: logicalX_pos1,
+                y: setDepth(logicalX_pos1),
+                immediate: false,
+              };
+            } else {
+              if (springIndex < mapIndex) {
+                //for right cards
+                const rightCardX_Pos = setRight_CardPositions(
+                  springIndex,
+                  logicalX_pos1,
+                  mapIndex
+                );
+                const rightCardY_Pos = setDepth(rightCardX_Pos);
+
+                return {
+                  x: rightCardX_Pos,
+                  y: rightCardY_Pos,
+                  immediate: false,
+                };
+              }
+
+              if (springIndex > mapIndex) {
+                //for left cards
+                const rightCardX_Pos = setLeft_CardPositions(
+                  springIndex,
+                  logicalX_pos1,
+                  mapIndex
+                );
+                const rightCardY_Pos = setDepth(rightCardX_Pos);
+
+                return {
+                  x: rightCardX_Pos,
+                  y: rightCardY_Pos,
+                  immediate: false,
+                };
+              }
+            }
+          });
+        }
+
+        if (
+          currCardX_Pos >= centerPoint + 336 / 2 &&
+          currCardX_Pos <= centerPoint + 336
+        ) {
+          setSprings.start((springIndex) => {
+            if (springIndex == mapIndex) {
+              return {
+                x: logicalX_pos2,
+                y: setDepth(logicalX_pos2),
+                immediate: false,
+              };
+            } else {
+              if (springIndex < mapIndex) {
+                //for right cards
+                const rightCardX_Pos = setRight_CardPositions(
+                  springIndex,
+                  logicalX_pos2,
+                  mapIndex
+                );
+                const rightCardY_Pos = setDepth(rightCardX_Pos);
+
+                return {
+                  x: rightCardX_Pos,
+                  y: rightCardY_Pos,
+                  immediate: false,
+                };
+              }
+
+              if (springIndex > mapIndex) {
+                //for left cards
+                const rightCardX_Pos = setLeft_CardPositions(
+                  springIndex,
+                  logicalX_pos2,
+                  mapIndex
+                );
+                const rightCardY_Pos = setDepth(rightCardX_Pos);
+
+                return {
+                  x: rightCardX_Pos,
+                  y: rightCardY_Pos,
+                  immediate: false,
+                };
+              }
+            }
+          });
+        }
+
+        if (
+          currCardX_Pos <= centerPoint - 336 / 2 &&
+          currCardX_Pos >= centerPoint - 336
+        ) {
+          setSprings.start((springIndex) => {
+            if (springIndex == mapIndex) {
+              return {
+                x: logicalX_pos3,
+                y: setDepth(logicalX_pos3),
+                immediate: false,
+              };
+            } else {
+              if (springIndex < mapIndex) {
+                //for right cards
+                const rightCardX_Pos = setRight_CardPositions(
+                  springIndex,
+                  logicalX_pos3,
+                  mapIndex
+                );
+                const rightCardY_Pos = setDepth(rightCardX_Pos);
+
+                return {
+                  x: rightCardX_Pos,
+                  y: rightCardY_Pos,
+                  immediate: false,
+                };
+              }
+
+              if (springIndex > mapIndex) {
+                //for left cards
+                const rightCardX_Pos = setLeft_CardPositions(
+                  springIndex,
+                  logicalX_pos3,
+                  mapIndex
+                );
+                const rightCardY_Pos = setDepth(rightCardX_Pos);
+
+                return {
+                  x: rightCardX_Pos,
+                  y: rightCardY_Pos,
+                  immediate: false,
+                };
+              }
+            }
+          });
+        }
+      });
+    },
+  });
+
+  // Generate animated div elements dynamically
+  const animatedDivs = [];
+  for (let i = 0; i < 15; i++) {
+    animatedDivs.push(
+      <animated.div
+        // Pass the index of the card to the gesture hook
+        {...bindGesture(i)}
+        id={i.toString()} // Make sure to provide a unique id for each item in the list
+        className={"customer_review_card"}
+        style={{
+          ...springs[i],
+          cursor: down ? "grabbing" : "grab",
+          touchAction: "pan-y",
+        }}
+      >
+        <div className="review_text">
+          The process was so easy and the representative was knowledgeable,
+          patient and kind. Definitely would recommend this company to everyone.
+        </div>
+        <div className="customer_info">
+          <img
+            src="Kathy_CoverPhoto.webp"
+            alt="coverphoto"
+            className="customer_coverphoto"
+            style={{
+              width: "50.67px",
+              height: "50.67px",
+              borderRadius: "50%",
+              userSelect: "none",
+            }}
+          />
+          <div className="customer_name">{`Card${i}`}</div>
+        </div>
+      </animated.div>
+    );
+  }
 
   return (
     <>
-      <div className="carousel_Component">
-        <animated.div
-          // Pass the index of the card to the gesture hook
-          {...bindGesture(0)}
-          id={"0"} // Make sure to provide a unique id for each item in the list
-          className={"customer_review_card"}
-          style={{
-            ...springs[0],
-            backgroundSize: "cover",
-            cursor: down ? "grabbing" : "grab",
-          }}
-          onClick={(e) => {
-            whichIndexToDrag(parseInt(e.currentTarget.id));
-            thisIndexToDragRef.current = parseInt(e.currentTarget.id);
-          }}
-        >
-          <div className="review_text">
-            The process was so easy and the representative was knowledgeable,
-            patient and kind. Definitely would recommend this company to
-            everyone.
-          </div>
-          <div className="customer_info">
-            <img
-              src="Kathy_CoverPhoto.webp"
-              alt="coverphoto"
-              className="customer_coverphoto"
-              style={{
-                width: "50.67px",
-                height: "50.67px",
-                borderRadius: "50%",
-                userSelect: "none",
-              }}
-            />
-            <div className="customer_name">{`Card${0}`}</div>
-          </div>
-        </animated.div>
-        <animated.div
-          // Pass the index of the card to the gesture hook
-          {...bindGesture(1)}
-          id={"1"} // Make sure to provide a unique id for each item in the list
-          className={"customer_review_card"}
-          style={{
-            ...springs[1],
-            backgroundSize: "cover",
-            cursor: down ? "grabbing" : "grab",
-          }}
-          onClick={(e) => {
-            whichIndexToDrag(parseInt(e.currentTarget.id));
-            thisIndexToDragRef.current = parseInt(e.currentTarget.id);
-          }}
-        >
-          <div className="review_text">
-            The process was so easy and the representative was knowledgeable,
-            patient and kind. Definitely would recommend this company to
-            everyone.
-          </div>
-          <div className="customer_info">
-            <img
-              src="Kathy_CoverPhoto.webp"
-              alt="coverphoto"
-              className="customer_coverphoto"
-              style={{
-                width: "50.67px",
-                height: "50.67px",
-                borderRadius: "50%",
-                userSelect: "none",
-              }}
-            />
-            <div className="customer_name">{`Card${1}`}</div>
-          </div>
-        </animated.div>
-        <animated.div
-          // Pass the index of the card to the gesture hook
-          {...bindGesture(2)}
-          id={"2"} // Make sure to provide a unique id for each item in the list
-          className={"customer_review_card"}
-          style={{
-            ...springs[2],
-            backgroundSize: "cover",
-            cursor: down ? "grabbing" : "grab",
-          }}
-          onClick={(e) => {
-            whichIndexToDrag(parseInt(e.currentTarget.id));
-            thisIndexToDragRef.current = parseInt(e.currentTarget.id);
-          }}
-        >
-          <div className="review_text">
-            The process was so easy and the representative was knowledgeable,
-            patient and kind. Definitely would recommend this company to
-            everyone.
-          </div>
-          <div className="customer_info">
-            <img
-              src="Kathy_CoverPhoto.webp"
-              alt="coverphoto"
-              className="customer_coverphoto"
-              style={{
-                width: "50.67px",
-                height: "50.67px",
-                borderRadius: "50%",
-                userSelect: "none",
-              }}
-            />
-            <div className="customer_name">{`Card${2}`}</div>
-          </div>
-        </animated.div>
-        <animated.div
-          // Pass the index of the card to the gesture hook
-          {...bindGesture(3)}
-          id={"3"} // Make sure to provide a unique id for each item in the list
-          className={"customer_review_card"}
-          style={{
-            ...springs[3],
-            backgroundSize: "cover",
-            cursor: down ? "grabbing" : "grab",
-          }}
-          onClick={(e) => {
-            whichIndexToDrag(parseInt(e.currentTarget.id));
-            thisIndexToDragRef.current = parseInt(e.currentTarget.id);
-          }}
-        >
-          <div className="review_text">
-            The process was so easy and the representative was knowledgeable,
-            patient and kind. Definitely would recommend this company to
-            everyone.
-          </div>
-          <div className="customer_info">
-            <img
-              src="Kathy_CoverPhoto.webp"
-              alt="coverphoto"
-              className="customer_coverphoto"
-              style={{
-                width: "50.67px",
-                height: "50.67px",
-                borderRadius: "50%",
-                userSelect: "none",
-              }}
-            />
-            <div className="customer_name">{`Card${3}`}</div>
-          </div>
-        </animated.div>
-        <animated.div
-          // Pass the index of the card to the gesture hook
-          {...bindGesture(4)}
-          id={"4"} // Make sure to provide a unique id for each item in the list
-          className={"customer_review_card"}
-          style={{
-            ...springs[4],
-            backgroundSize: "cover",
-            cursor: down ? "grabbing" : "grab",
-          }}
-          onClick={(e) => {
-            whichIndexToDrag(parseInt(e.currentTarget.id));
-            thisIndexToDragRef.current = parseInt(e.currentTarget.id);
-          }}
-        >
-          <div className="review_text">
-            The process was so easy and the representative was knowledgeable,
-            patient and kind. Definitely would recommend this company to
-            everyone.
-          </div>
-          <div className="customer_info">
-            <img
-              src="Kathy_CoverPhoto.webp"
-              alt="coverphoto"
-              className="customer_coverphoto"
-              style={{
-                width: "50.67px",
-                height: "50.67px",
-                borderRadius: "50%",
-                userSelect: "none",
-              }}
-            />
-            <div className="customer_name">{`Card${4}`}</div>
-          </div>
-        </animated.div>
-        <animated.div
-          // Pass the index of the card to the gesture hook
-          {...bindGesture(5)}
-          id={"5"} // Make sure to provide a unique id for each item in the list
-          className={"customer_review_card"}
-          style={{
-            ...springs[5],
-            backgroundSize: "cover",
-            cursor: down ? "grabbing" : "grab",
-          }}
-          onClick={(e) => {
-            whichIndexToDrag(parseInt(e.currentTarget.id));
-            thisIndexToDragRef.current = parseInt(e.currentTarget.id);
-          }}
-        >
-          <div className="review_text">
-            The process was so easy and the representative was knowledgeable,
-            patient and kind. Definitely would recommend this company to
-            everyone.
-          </div>
-          <div className="customer_info">
-            <img
-              src="Kathy_CoverPhoto.webp"
-              alt="coverphoto"
-              className="customer_coverphoto"
-              style={{
-                width: "50.67px",
-                height: "50.67px",
-                borderRadius: "50%",
-                userSelect: "none",
-              }}
-            />
-            <div className="customer_name">{`Card${5}`}</div>
-          </div>
-        </animated.div>
-      </div>
+      <div className="carousel_Component">{animatedDivs}</div>
     </>
   );
 };

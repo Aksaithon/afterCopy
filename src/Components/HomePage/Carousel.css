@@ -10,17 +10,16 @@
 
 .carousel_Component {
   position: relative;
-  width: 100vw;
-  height: 500px;
+  width: 336px;
+  height: 376px;
 
-  /* display: inline-block; */
   display: flex;
   flex-direction: row;
 
-  /* background-color: #b3ffb2; */
 
   /* overflow: hidden; */
 }
+
 
 .customer_review_card {
   position: absolute;
@@ -31,11 +30,15 @@
   height: 376px;
   /* width: 336px */
 
+  background-color:#d8ffd7;
+
+
   align-items: flex-start;
   justify-content: space-between;
 
   padding: 40px;
 
+  
   border-radius: 22.4985px;
 
   user-select: none;

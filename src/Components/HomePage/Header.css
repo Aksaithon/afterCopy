@@ -18,8 +18,6 @@
   src: url(SpaceGrotesk-Regular.ttf);
 }
 
-
-
 header {
   display: flex;
   flex-direction: column;
@@ -34,6 +32,8 @@ header {
   height: fit-content;
   overflow: hidden;
   background-color: #fbf6d9;
+
+  z-index: 0;
 }
 
 .main_title_and_captions_CONTAINER {
@@ -76,8 +76,7 @@ header {
   color: #503a3a;
 }
 
-
-.btns_and_Image{
+.btns_and_Image {
   display: flex;
   flex-direction: column;
 
@@ -87,10 +86,8 @@ header {
   gap: 20px;
 
   align-items: center;
-  justify-content: center;
-
+  justify-content: flex-start;
 }
-
 
 .button_CONTAINER {
   display: flex;
@@ -107,7 +104,7 @@ header {
   align-items: center;
   justify-content: center;
 
-  z-index: 1;
+  z-index: 0;
 }
 
 .btn1 {
@@ -126,11 +123,9 @@ header {
   padding-right: 24px;
 }
 
-
 .scndClrComb {
   animation: scndClrComb 0.3s ease forwards;
 }
-
 
 @keyframes scndClrComb {
   to {
@@ -149,25 +144,22 @@ header {
 
   font-family: "matter-bold";
   font-size: 12.8px;
-  
-  
+
   .btn2img {
     width: 10px;
     height: 13px;
-
   }
 }
 
-.shiftArrow{
+.shiftArrow {
   animation: shiftArrw 0.3s ease forwards;
 }
 
 @keyframes shiftArrw {
-  to{
+  to {
     transform: translateX(6px);
   }
 }
-
 
 .imgContainer {
   /* position: absolute;
@@ -200,8 +192,8 @@ header {
     width: 552.86px;
     font-size: 44.8px;
   }
-  
-  .btns_and_Image{
+
+  .btns_and_Image {
     gap: 30px;
   }
 }
@@ -232,8 +224,20 @@ header {
 
   .button_CONTAINER {
     gap: 10px;
+    z-index: 0;
   }
-.btns_and_Image{
-  gap: 75px;
-}
+
+  .btns_and_Image {
+    position: relative;
+    height: 43.24vw;
+    overflow: visible;
+    gap: 0px;
+  }
+  .imgContainer {
+    position: absolute;
+    transform: translateY(-50px);
+
+    height: 47.2vw;
+    z-index: -1;
+  }
 }

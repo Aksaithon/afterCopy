@@ -13,6 +13,20 @@
     src: url(NibPro-Light.ttf);
 }
 
+.Testimonial_Section{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    width: 100vw;
+
+    gap: 35px;
+
+    align-items: center;
+    justify-content: flex-start;
+}
+
+
 .testimonial_CONTAINER{
     display: flex;
     flex-direction: column;
@@ -25,7 +39,7 @@
     gap: 10px;
 
     user-select: none;
-
+    z-index: 1;
 }
 
 .testimonial_Title{
