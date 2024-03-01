@@ -1,4 +1,4 @@
-import Carousel3 from "./Carousel";
+import Carousel from "./Carousel";
 import "./Testimonial.css";
 
 const Testimonial = () => {
@@ -14,7 +14,7 @@ const Testimonial = () => {
             <div className="avg_ratings">4.9 average star review</div>
           </div>
         </div>
-        <Carousel3/>
+        <Carousel/>
       </div>
     </>
   );
