@@ -1,4 +1,4 @@
-import Carousel3 from "./Carousel3";
+import Carousel3 from "./Carousel";
 import "./Testimonial.css";
 
 const Testimonial = () => {

@@ -3,7 +3,7 @@ import { useGesture } from "@use-gesture/react";
 import React, { useState, useRef } from "react";
 
 import "./Carousel.css";
-const Carousel3: React.FC = () => {
+const Carousel: React.FC = () => {
   const [down, setDown] = useState(false);
 
   let Card_Pos = 0;
@@ -433,4 +433,4 @@ const Carousel3: React.FC = () => {
   );
 };
 
-export default Carousel3;
+export default Carousel;
