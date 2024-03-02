@@ -1,21 +1,21 @@
 @font-face {
   font-family: "nibPro-Regular";
-  src: url(NibPro-Regular.ttf);
+  src: url(/NibPro-Regular.ttf);
 }
 
 @font-face {
   font-family: "nibPro-Italics";
-  src: url(NibPro-Italic.ttf);
+  src: url(/NibPro-Italic.ttf);
 }
 
 @font-face {
   font-family: "matter-bold";
-  src: url(SpaceGrotesk-Bold.ttf);
+  src: url(/SpaceGrotesk-Bold.ttf);
 }
 
 @font-face {
   font-family: "matter-regular";
-  src: url(SpaceGrotesk-Regular.ttf);
+  src: url(/SpaceGrotesk-Regular.ttf);
 }
 
 header {
