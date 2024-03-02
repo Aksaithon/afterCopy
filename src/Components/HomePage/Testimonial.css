@@ -1,16 +1,16 @@
 @font-face {
     font-family: "NibPro-regular";
-    src: url(NibPro-Regular.ttf);
+    src: url(/NibPro-Regular.ttf);
 }
 
 @font-face {
     font-family: "Grotesk-bold";
-    src: url(SpaceGrotesk-Bold.ttf);
+    src: url(/SpaceGrotesk-Bold.ttf);
 }
 
 @font-face {
     font-family: "NibPro-light";
-    src: url(NibPro-Light.ttf);
+    src: url(/NibPro-Light.ttf);
 }
 
 .Testimonial_Section{
