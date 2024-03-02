@@ -32,7 +32,6 @@ header {
   height: fit-content;
   overflow: hidden;
   background-color: #fbf6d9;
-
   z-index: 0;
 }
 
@@ -46,6 +45,7 @@ header {
 
   align-items: center;
   justify-content: center;
+  z-index: 1;
 }
 
 .main_title {
@@ -81,7 +81,6 @@ header {
   flex-direction: column;
 
   width: inherit;
-  height: fit-content;
 
   gap: 20px;
 
@@ -104,7 +103,7 @@ header {
   align-items: center;
   justify-content: center;
 
-  z-index: 0;
+  z-index: 1;
 }
 
 .btn1 {
@@ -224,20 +223,34 @@ header {
 
   .button_CONTAINER {
     gap: 10px;
+  }
+  .btns_and_Image {
+    /* position: relative; */
+    /*initial-height: 767.33px = 67.8631vw
+     height: 67.2vw; 767
+    height: 50vw; 1067
+    height: 39.2vw; 1367
+    height: 52.1333vw; avg */
+    gap: 75px;
+  }
+
+  .imgContainer {
+    /* position: absolute; */
+    /* transform: translateY(153px); 767
+    transform: translateY(35px); 1067
+    transform: translateY(-110px); 1367
+    transform: translateY(5.0604vw); avg */
+
     z-index: 0;
   }
+}
 
-  .btns_and_Image {
-    position: relative;
-    height: 43.24vw;
-    overflow: visible;
-    gap: 0px;
+
+@media screen and (min-width: 768px) {
+  .btns_and_Image{
+    /* height: calc(67.8631vw); */
   }
-  .imgContainer {
-    position: absolute;
-    transform: translateY(-50px);
-
-    height: 47.2vw;
-    z-index: -1;
+  .imgContainer{
+    transform: translateY(calc(10vw - 153px ));
   }
 }

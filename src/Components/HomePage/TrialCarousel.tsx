@@ -87,7 +87,7 @@ const TrialCarousel = () => {
       distance,
     }) => {
       if (distance[0] > 5) {
-        const improveDragControll = 150 * inThisDirection;  
+        // const improveDragControll = 150 * inThisDirection;  
         slider_Pos = X_Pos.current + mx;
         slider.start({
           x: slider_Pos,
