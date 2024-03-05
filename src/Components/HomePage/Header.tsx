@@ -55,8 +55,8 @@ const Header = () => {
               />
             </div>
           </div>
+          <div className="imgContainer"></div>
         </div>
-        <div className="imgContainer"></div>
       </header>
     </>
   );
