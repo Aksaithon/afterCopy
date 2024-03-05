@@ -38,7 +38,7 @@ const Header = () => {
           </div>
         </div>
 
-        <div className="btns_and_Image">
+        <div className="buttons">
           <div className="button_CONTAINER">
             <div
               className={chngBtn1Color ? "btn1 scndClrComb" : "btn1"}
@@ -55,9 +55,8 @@ const Header = () => {
               />
             </div>
           </div>
-
-          <div className="imgContainer"></div>
         </div>
+        <div className="imgContainer"></div>
       </header>
     </>
   );
