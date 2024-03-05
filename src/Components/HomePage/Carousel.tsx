@@ -158,8 +158,8 @@ const Carousel: React.FC = () => {
       setDown(down);
       console.log();
     },
-    onDrag: ({ args: [currCardIndex], down, movement: [mx] }) => {
-      Card_Pos = cardSpring_Pos.current + mx;
+    onDrag: ({ args: [currCardIndex], down, movement: [mx], direction }) => {
+      Card_Pos = cardSpring_Pos.current + mx + direction[0]*100;
 
       //ONE massive LOGIC of all time 😲🤯
 
