@@ -8,6 +8,24 @@
   src: url(/SpaceGrotesk-Regular.ttf);
 }
 
+
+.carousel_Wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.glass_layer{
+  position: absolute;
+  width: 100%;
+  height: 336px;
+  z-index: 1;
+  background: rgba(192, 234, 255, 0.532);
+}
+
+
 .carousel_Component {
   position: relative;
   width: 336px;
@@ -15,6 +33,8 @@
 
   display: flex;
   flex-direction: row;
+
+  z-index: 0;
 
 
   /* overflow: hidden; */

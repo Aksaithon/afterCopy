@@ -9,6 +9,8 @@ const Carousel: React.FC = () => {
   let Card_Pos = 0;
   const cardSpring_Pos = useRef(0);
 
+  // const [centerCardIndex, setCenterCardIndex] = useState(0);  DRAAG GAP FILLING
+
   /* start startPoint, -350  center centerPoint, -55  end endPoint, -350  */
   function setCenterPoint(): number {
     return 0;
@@ -25,12 +27,6 @@ const Carousel: React.FC = () => {
 
   const [startPoint, endPoint] = setStart_and_End_Point(centerPoint);
 
-  const [springs, setSprings] = useSprings(15, () => ({
-    x: centerPoint,
-    y: 0,
-    immediate: true,
-  }));
-
   function setDepth(accordingToThisX: number) {
     const depth =
       startPoint >= accordingToThisX &&
@@ -46,10 +42,10 @@ const Carousel: React.FC = () => {
 
   function setRight_CardPositions(
     index: number,
-    currCardX_Pos: number,
-    currCardIndex: number
+    centerCardPos: number,
+    centerCardIndex: number
   ): number {
-    const X_pos = currCardX_Pos + (currCardIndex - index) * 375;
+    const X_pos = centerCardPos + (centerCardIndex - index) * 375;
 
     if (X_pos > startPoint) {
       return startPoint;
@@ -63,10 +59,10 @@ const Carousel: React.FC = () => {
 
   function setLeft_CardPositions(
     index: number,
-    currCardX_Pos: number,
-    currCardIndex: number
+    centerCardPos: number,
+    centerCardIndex: number
   ): number {
-    const X_pos = currCardX_Pos - (index - currCardIndex) * 375;
+    const X_pos = centerCardPos - (index - centerCardIndex) * 375;
 
     if (X_pos > startPoint) {
       return startPoint;
@@ -77,6 +73,43 @@ const Carousel: React.FC = () => {
 
     return X_pos;
   }
+
+  const [springs, setSprings] = useSprings(15, (index) => ({
+    x:
+      index == 7
+        ? 0
+        : index < 7
+        ? setRight_CardPositions(index, 0, 7)
+        : index > 7
+        ? setLeft_CardPositions(index, 0, 7)
+        : 0,
+    y:
+      index == 7
+        ? setDepth(0)
+        : index < 7
+        ? setDepth(setRight_CardPositions(index, 0, 7))
+        : index > 7
+        ? setDepth(setLeft_CardPositions(index, 0, 7))
+        : setDepth(0),
+    immediate: true,
+  }));
+
+  // function whoseAtCenter() {
+
+  //   springs.map(
+  //     (                                                    DRAG GAP FILLING CODE
+  //       positions: { x: SpringValue<number>; y: SpringValue<number> },
+  //       mapIndex
+  //       ) => {
+  //       if (positions.x.get() == 0) {
+  //         setCenterCardIndex(mapIndex)
+  //       }
+
+  //     }
+  //     );
+  //     console.log(centerCardIndex);
+  //     return centerCardIndex;
+  // }
 
   const bindGesture = useGesture({
     onDragStart: ({ args: currCardIndex }) => {
@@ -396,8 +429,8 @@ const Carousel: React.FC = () => {
       <animated.div
         // Pass the index of the card to the gesture hook
         {...bindGesture(i)}
-        id={i.toString()} // Make sure to provide a unique id for each item in the list
         className={"customer_review_card"}
+        key={i.toString()}
         style={{
           ...springs[i],
           cursor: down ? "grabbing" : "grab",
@@ -428,7 +461,14 @@ const Carousel: React.FC = () => {
 
   return (
     <>
-      <div className="carousel_Component">{animatedDivs}</div>
+      {/* <div className="carousel_Wrapper">
+        <animated.div
+          className="glass_layer"
+          {...bindGesture(whoseAtCenter())}                                 DRAG GAP FILLING CODE
+          style={{ cursor: down ? "grabbing" : "grab", touchAction: "pan-x" }}
+        ></animated.div>
+      </div> */}
+        <div className="carousel_Component">{animatedDivs}</div>
     </>
   );
 };
