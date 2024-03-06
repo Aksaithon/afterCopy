@@ -464,7 +464,7 @@ const Carousel: React.FC = () => {
       {/* <div className="carousel_Wrapper">
         <animated.div
           className="glass_layer"
-          {...bindGesture(whoseAtCenter())}                                 DRAG GAP FILLING CODE
+          {...bindGesture(whoseAtCenter())}                                DRAG GAP FILLING CODE
           style={{ cursor: down ? "grabbing" : "grab", touchAction: "pan-x" }}
         ></animated.div>
       </div> */}
