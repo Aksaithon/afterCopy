@@ -5,7 +5,7 @@
 
 @font-face {
     font-family: "Grotesk-bold";
-    src: url(/SpaceGrotesk-Bold.ttf);
+    src: url(/Trispace-SemiBold.ttf);
 }
 
 @font-face {
@@ -69,6 +69,7 @@
 
 .avg_ratings{
     font-family: "NibPro-light" ;
+    text-align: center;
     font-size: 19.2px;
     letter-spacing: 1px;
     color: #503a3a;
