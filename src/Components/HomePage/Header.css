@@ -30,7 +30,7 @@ header {
   width: 100%;
   background-color: #fbf6d9;
   z-index: 0;
-  transition: all 0.2s;
+  transition: all 0.2s ;
 }
 
 .main_title_and_captions_CONTAINER {

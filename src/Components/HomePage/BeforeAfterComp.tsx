@@ -7,31 +7,53 @@ const BeforeAfterComp = () => {
   const ref2 = useRef(null);
 
   useEffect(() => {
-    
     const observer = new IntersectionObserver(
       ([entry]) => {
-        console.log('ref1 = ',entry);
-        
         if (entry.intersectionRatio >= (window.innerWidth < 767 ? 1 : 0.68)) {
           // Trigger your desired animation here
-          alert( `  ${window.innerWidth < 767 ? '100%' : '68%'}  of the Before card is visible`);
+          const img1 = document.getElementsByClassName("before-small-img1")[0];
+          const img2 = document.getElementsByClassName("before-small-img2")[0];
+
+          img1.classList.add("change_top_and_opacity");
+          img2.classList.add("change_top_and_opacity");
+        }
+
+        if (entry.intersectionRatio == 0) {
+          // alert('BEfore card IS INVISIBLE')
+          const img1 = document.getElementsByClassName("before-small-img1")[0];
+          const img2 = document.getElementsByClassName("before-small-img2")[0];
+
+          img1.classList.remove("change_top_and_opacity");
+          img2.classList.remove("change_top_and_opacity");
         }
       },
       {
-        threshold: [window.innerWidth < 767 ? 1 : 0.68],
+        threshold: [0, window.innerWidth < 767 ? 1 : 0.68],
       }
     );
     const observer2 = new IntersectionObserver(
       ([entry]) => {
-        console.log('ref2 = ',entry);
-
         if (entry.intersectionRatio >= (window.innerWidth < 767 ? 1 : 0.68)) {
           // Trigger desired animation here
-          alert(`${window.innerWidth < 767 ? '100%' : '68%'} of the After card is visible`);
+
+          const img1 = document.getElementsByClassName("after-small-img1")[0];
+          const img2 = document.getElementsByClassName("after-small-img2")[0];
+
+          img1.classList.add("change_top_and_opacity");
+          img2.classList.add("change_top_and_opacity");
+        }
+
+        if (entry.intersectionRatio == 0) {
+          // alert('BEfore card IS INVISIBLE')
+          const img1 = document.getElementsByClassName("after-small-img1")[0];
+          const img2 = document.getElementsByClassName("after-small-img2")[0];
+
+          img1.classList.remove("change_top_and_opacity");
+          img2.classList.remove("change_top_and_opacity");
         }
       },
       {
-        threshold: [window.innerWidth < 767 ? 1 : 0.68],
+        threshold: [0, window.innerWidth < 767 ? 1 : 0.68],
       }
     );
 
@@ -79,8 +101,8 @@ const BeforeAfterComp = () => {
             </div>
             <div className="afterCard ">
               <div ref={ref2} className="afterCardDsplyImg"></div>
-              <div className="after-small-img2"></div>
               <div className="after-small-img1"></div>
+              <div className="after-small-img2"></div>
               <div className="after_card_texts">
                 <img
                   className="afterTitleImg"

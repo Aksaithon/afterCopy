@@ -108,6 +108,26 @@
   background-color: transparent;
 }
 
+.before-small-img1,
+.after-small-img1,
+.before-small-img2 {
+  transform: translateY(30px);
+  opacity: 0;
+  transition: all 1s;
+}
+
+.after-small-img2 {
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 1s;
+  transition-delay: 1s;
+}
+
+.change_top_and_opacity {
+  transform: translateY(0px);
+  opacity: 1;
+}
+
 .afterCardDsplyImg {
   background-image: url(/AfterCardImg.webp);
   background-color: #ffff;
@@ -178,8 +198,6 @@
     line-height: 1.67;
   }
 }
-
-  
 
 @media screen and (min-width: 360px) {
   .title {
