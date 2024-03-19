@@ -30,6 +30,7 @@ header {
   width: 100%;
   background-color: #fbf6d9;
   z-index: 0;
+  transition: all 0.2s;
 }
 
 .main_title_and_captions_CONTAINER {
@@ -48,6 +49,7 @@ header {
   align-items: center;
   justify-content: center;
   z-index: 1;
+  transition: all 0.2s;
 }
 
 .main_title {
@@ -57,15 +59,18 @@ header {
   font-family: "nibPro-Regular";
   font-size: 47.36px;
   font-weight: lighter;
+  transition: all 0.2s;
 
   em {
     font-family: "nibPro-Italics";
+    transition: all 0.2s;
   }
 
   span {
     font-family: "matter-bold";
     font-weight: bolder;
     color: #45594e;
+    transition: all 0.2s;
   }
 }
 
@@ -75,6 +80,7 @@ header {
   font-family: "matter-regular";
   font-size: 15px;
   color: #503a3a;
+  transition: all 0.2s;
 }
 
 .buttons {
@@ -87,6 +93,7 @@ header {
 
   align-items: center;
   justify-content: flex-start;
+  transition: all 0.2s;
 }
 
 .button_CONTAINER {
@@ -105,10 +112,11 @@ header {
   justify-content: center;
 
   z-index: 1;
+  transition: all 0.2s;
 }
 
 .btn1 {
-  width: inherit;
+  width: 100%;
   border-radius: 9.34px;
 
   color: #503a3a;
@@ -117,10 +125,9 @@ header {
   text-align: center;
   font-family: "matter-bold";
 
-  padding-top: 16px;
-  padding-bottom: 16px;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding: 16px 24px;
+
+  transition: all 0.2s;
 }
 
 .scndClrComb {
@@ -146,10 +153,12 @@ header {
   font-size: 12.8px;
 
   user-select: none;
+  transition: all 0.2s;
 
   .btn2img {
     width: 10px;
     height: 13px;
+    transition: all 0.2s;
   }
 }
 
@@ -175,12 +184,14 @@ header {
   background: url("/AfterCopyIllustration.jpg");
   background-size: cover;
   background-position: center;
+  transition: all 0.2s;
 }
 
 @media screen and (min-width: 360px) and (max-width: 372px) {
   .main_title {
     width: 328px;
     font-size: 47.36px;
+    transition: all 0.2s;
   }
 }
 
@@ -188,6 +199,7 @@ header {
   .main_title {
     width: 341.33px;
     font-size: 47.36px;
+    transition: all 0.2s;
   }
 }
 
@@ -195,10 +207,12 @@ header {
   .main_title {
     width: 552.86px;
     font-size: 44.8px;
+    transition: all 0.2s;
   }
 
   .btns_and_Image {
     gap: 30px;
+    transition: all 0.2s;
   }
 }
 
@@ -206,6 +220,7 @@ header {
   header{
     padding-top: 128px;
     padding-bottom: 454px;
+    transition: all 0.2s;
   }
   .imgContainer {
     position: absolute;
@@ -213,41 +228,64 @@ header {
     bottom: 0%;
     left: 0%;
     right: 0%;
+    transition: all 0.2s;
   }
   .main_title {
     width: 680px;
     font-size: 80px;
+    transition: all 0.2s;
   }
 
   .captions_CONTAINER {
     font-size: 20px;
     width: 429px;
+    transition: all 0.2s;
   }
 
   .btn1 {
-    width: 240px;
+    width: fit-content;
+    padding: 16px 40px;
+    letter-spacing: -1.6px;
+    line-height: 1.5;
+    transition: all 0.2s;
   }
-
+  
   .btn2 {
     font-size: 16px;
+    letter-spacing: -1.9px;
+    transition: all 0.2s;
 
     .btn2img {
       width: 10px;
       height: 19px;
+      transition: all 0.2s;
     }
   }
 
   .button_CONTAINER {
     gap: 10px;
+    transition: all 0.2s;
   }
   .buttons {
     gap: 75px;
+    transition: all 0.2s;
   }
+}
+
+@media screen and (min-width: 991px) {
+  .btn1{
+    width: fit-content;
+    font-size: 20px;
+    padding: 16px 40px;
+    transition: all 0.2s;
+  }
+  
 }
 
 @media screen and (min-width: 1440px) {
   header{
     padding-top: 128px;
     padding-bottom: 634px;
+    transition: all 0.2s;
   }
 }

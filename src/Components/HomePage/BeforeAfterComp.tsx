@@ -1,6 +1,57 @@
 import "./BeforeAfterComp.css";
 
+import { useRef, useEffect } from "react";
+
 const BeforeAfterComp = () => {
+  const ref1 = useRef(null);
+  const ref2 = useRef(null);
+
+  useEffect(() => {
+    
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        console.log('ref1 = ',entry);
+        
+        if (entry.intersectionRatio >= (window.innerWidth < 767 ? 1 : 0.68)) {
+          // Trigger your desired animation here
+          alert( `  ${window.innerWidth < 767 ? '100%' : '68%'}  of the Before card is visible`);
+        }
+      },
+      {
+        threshold: [window.innerWidth < 767 ? 1 : 0.68],
+      }
+    );
+    const observer2 = new IntersectionObserver(
+      ([entry]) => {
+        console.log('ref2 = ',entry);
+
+        if (entry.intersectionRatio >= (window.innerWidth < 767 ? 1 : 0.68)) {
+          // Trigger desired animation here
+          alert(`${window.innerWidth < 767 ? '100%' : '68%'} of the After card is visible`);
+        }
+      },
+      {
+        threshold: [window.innerWidth < 767 ? 1 : 0.68],
+      }
+    );
+
+    if (ref1.current) {
+      observer.observe(ref1.current);
+    }
+    if (ref2.current) {
+      observer2.observe(ref2.current);
+    }
+
+    return () => {
+      if (ref1.current) {
+        observer.unobserve(ref1.current);
+      }
+      if (ref2.current) {
+        observer2.unobserve(ref2.current);
+      }
+    };
+  }, []);
+
   return (
     <>
       <div className="comparison_Component">
@@ -12,7 +63,9 @@ const BeforeAfterComp = () => {
           </div>
           <div className="BeforeAfterCards_Container">
             <div className="beforeCard ">
-              <div className="beforeCardDsplyImg"></div>
+              <div ref={ref1} className="beforeCardDsplyImg"></div>
+              <div className="before-small-img1"></div>
+              <div className="before-small-img2"></div>
               <div className="before_card_texts">
                 <div className="beforeTitle">Before</div>
                 <div className="before_textStack">
@@ -25,7 +78,9 @@ const BeforeAfterComp = () => {
               </div>
             </div>
             <div className="afterCard ">
-              <div className="afterCardDsplyImg"></div>
+              <div ref={ref2} className="afterCardDsplyImg"></div>
+              <div className="after-small-img2"></div>
+              <div className="after-small-img1"></div>
               <div className="after_card_texts">
                 <img
                   className="afterTitleImg"
