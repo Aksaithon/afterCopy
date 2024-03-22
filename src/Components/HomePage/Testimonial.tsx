@@ -15,6 +15,7 @@ const Testimonial = () => {
           </div>
         </div>
         <Carousel/>
+        <div className="read_more_reviews">Read more reviews</div>
       </div>
     </>
   );
