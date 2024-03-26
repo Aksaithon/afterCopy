@@ -129,9 +129,9 @@ const Carousel: React.FC = () => {
 
       const card_no = [8, 9, 10];
 
-      if(thisCard <= 2 && find_centerCard() <= 2){
+      if (thisCard <= 2 && find_centerCard() <= 2) {
         autoPosition = startPoint;
-        thisCard = card_no[Math.floor(Math.random() * card_no.length)]
+        thisCard = card_no[Math.floor(Math.random() * card_no.length)];
       }
 
       if (autoPosition == endPoint) {
@@ -172,7 +172,7 @@ const Carousel: React.FC = () => {
           immediate: false,
         };
       });
-    }, 1000);
+    }, 5000);
   }
 
   function stopAllIntervals(intervals: { [key: number]: NodeJS.Timeout }) {
@@ -581,15 +581,15 @@ const Carousel: React.FC = () => {
 
   return (
     <>
-      {/* <div className="carousel_Wrapper">
+      <div className="carousel_Wrapper">
+        <div ref={ref} className="carousel_Component">
+          {animatedDivs}
+        </div>
         <animated.div
           className="glass_layer"
-          {...bindGesture(whoseAtCenter())}                                DRAG GAP FILLING CODE
+          {...bindGesture(find_centerCard())} // DRAG GAP FILLING CODE
           style={{ cursor: down ? "grabbing" : "grab", touchAction: "pan-x" }}
-        ></animated.div>
-      </div> */}
-      <div ref={ref} className="carousel_Component">
-        {animatedDivs}
+        />
       </div>
     </>
   );
