@@ -130,7 +130,11 @@ const Carousel: React.FC = () => {
       if (autoPosition == endPoint) {
         autoPosition = startPoint;
       } else {
-        autoPosition = autoPosition - (336 + card_padding);
+        if (thisCard == 0 && find_centerCard() == 0) {
+          autoPosition = startPoint;
+        } else {
+          autoPosition = autoPosition - (336 + card_padding);
+        }
       }
 
       autoPosition =
@@ -161,7 +165,7 @@ const Carousel: React.FC = () => {
           immediate: false,
         };
       });
-    }, 5000);
+    }, 1000);
   }
 
   function stopAllIntervals(intervals: { [key: number]: NodeJS.Timeout }) {
