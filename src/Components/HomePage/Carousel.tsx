@@ -127,6 +127,13 @@ const Carousel: React.FC = () => {
     intervals[thisCard] = setInterval(() => {
       console.log(`running ${thisCard}`);
 
+      const card_no = [8, 9, 10];
+
+      if(thisCard <= 2 && find_centerCard() <= 2){
+        autoPosition = startPoint;
+        thisCard = card_no[Math.floor(Math.random() * card_no.length)]
+      }
+
       if (autoPosition == endPoint) {
         autoPosition = startPoint;
       } else {
