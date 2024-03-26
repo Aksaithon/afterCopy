@@ -1,9 +1,11 @@
 import { useSprings, animated, SpringValue } from "react-spring";
 import { useGesture } from "@use-gesture/react";
 import React, { useState, useRef, useEffect } from "react";
-
 import "./Carousel.css";
+import "./Carousel_Data";
+import { Carousel_data } from "./Carousel_Data";
 
+const no_of_reviews = 15;
 const intervals: { [key: number]: NodeJS.Timeout } = {};
 const card_padding = 39;
 let Card_Pos = 0;
@@ -71,22 +73,22 @@ const Carousel: React.FC = () => {
 
   const cardSpring_Pos = useRef(0);
 
-  const [springs, setSprings] = useSprings(15, (index) => ({
+  const [springs, setSprings] = useSprings(no_of_reviews, (index) => ({
     x:
-      index == 7
+      index == 5
         ? 0
-        : index < 7
-        ? setRight_CardPositions(index, 0, 7)
-        : index > 7
-        ? setLeft_CardPositions(index, 0, 7)
+        : index < 5
+        ? setRight_CardPositions(index, 0, 5)
+        : index > 5
+        ? setLeft_CardPositions(index, 0, 5)
         : 0,
     y:
-      index == 7
+      index == 5
         ? setDepth(0)
-        : index < 7
-        ? setDepth(setRight_CardPositions(index, 0, 7))
-        : index > 7
-        ? setDepth(setLeft_CardPositions(index, 0, 7))
+        : index < 5
+        ? setDepth(setRight_CardPositions(index, 0, 5))
+        : index > 5
+        ? setDepth(setLeft_CardPositions(index, 0, 5))
         : setDepth(0),
     immediate: true,
   }));
@@ -127,9 +129,9 @@ const Carousel: React.FC = () => {
     intervals[thisCard] = setInterval(() => {
       console.log(`running ${thisCard}`);
 
-      const card_no = [8, 9, 10];
+      const card_no = [6, 7, 8];
 
-      if (thisCard <= 2 && find_centerCard() <= 2) {
+      if (thisCard <= 3 && find_centerCard() <= 3) {
         autoPosition = startPoint;
         thisCard = card_no[Math.floor(Math.random() * card_no.length)];
       }
@@ -544,7 +546,7 @@ const Carousel: React.FC = () => {
 
   // Generate animated div elements dynamically
   const animatedDivs = [];
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i < no_of_reviews; i++) {
     animatedDivs.push(
       <animated.div
         // Pass the index of the card to the gesture hook
@@ -555,15 +557,15 @@ const Carousel: React.FC = () => {
           ...springs[i],
           cursor: down ? "grabbing" : "grab",
           touchAction: "pan-y",
+          backgroundColor: `${Object.values(Carousel_data)[i].color}`,
         }}
       >
         <div className="review_text">
-          The process was so easy and the representative was knowledgeable,
-          patient and kind. Definitely would recommend this company to everyone.
+          {Object.values(Carousel_data)[i].review}
         </div>
         <div className="customer_info">
           <img
-            src="Kathy_CoverPhoto.webp"
+            src={`${Object.values(Carousel_data)[i].profile_img}`}
             alt="coverphoto"
             className="customer_coverphoto"
             style={{
@@ -573,7 +575,9 @@ const Carousel: React.FC = () => {
               userSelect: "none",
             }}
           />
-          <div className="customer_name">{`Card${i}`}</div>
+          <div className="customer_name">{`${
+            Object.values(Carousel_data)[i].name
+          }`}</div>
         </div>
       </animated.div>
     );
