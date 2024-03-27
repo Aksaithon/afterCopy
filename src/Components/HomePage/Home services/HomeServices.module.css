@@ -56,7 +56,6 @@
 .title_and_para {
   display: flex;
   flex-direction: column;
-w
   width: 100%;
 
   gap: 24px;
