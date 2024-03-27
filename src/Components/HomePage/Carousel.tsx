@@ -3,7 +3,7 @@ import { useGesture } from "@use-gesture/react";
 import React, { useState, useRef, useEffect } from "react";
 import "./Carousel.css";
 import "./Carousel_Data";
-import { Carousel_data } from "./Carousel_Data";
+import Carousel_data from "./Carousel_Data";
 
 const no_of_reviews = 15;
 const intervals: { [key: number]: NodeJS.Timeout } = {};

@@ -5,7 +5,7 @@ export interface CarouselData {
   color: string;
 }
 
-export const Carousel_data: Record<number, CarouselData> = {
+const Carousel_data: Record<number, CarouselData> = {
   1: {
     review:
       "No suggestions, my experience was the best it could be, under the circumstances! I would say, keep up the good work! Those grieving are in need of your service! Thank you, Mary",
@@ -128,3 +128,5 @@ export const Carousel_data: Record<number, CarouselData> = {
   },
 };
 
+
+export default Carousel_data;
