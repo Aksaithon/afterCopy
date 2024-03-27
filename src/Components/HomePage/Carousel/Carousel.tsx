@@ -556,7 +556,7 @@ const Carousel: React.FC = () => {
         style={{
           ...springs[i],
           cursor: down ? "grabbing" : "grab",
-          touchAction: "pan-y",
+          touchAction: "pan-x",
           backgroundColor: `${Object.values(Carousel_data)[i].color}`,
         }}
       >
