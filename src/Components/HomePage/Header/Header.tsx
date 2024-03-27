@@ -55,7 +55,7 @@ const Header = () => {
               />
             </div>
           </div>
-          <img loading="eager" className="imgContainer"></img>
+          <div className="imgContainer"></div>
         </div>
       </header>
     </>

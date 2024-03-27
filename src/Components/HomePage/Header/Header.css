@@ -181,7 +181,7 @@ header {
   width: inherit;
   height: 47.2vw;
 
-  background: url("/AfterCopyIllustration.jpg");
+  background: url(/AfterCopyIllustration.jpg);
   background-size: cover;
   background-position: center;
   transition: all 0.2s;
