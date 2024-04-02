@@ -82,6 +82,8 @@ const HomeServices = () => {
           }
           alt=""
         />
+
+        <img className={styles.ServiceImg}  src="/Home_Service_Images/ContainerImgA.webp" alt="" />
       </div>
     </div>
   );

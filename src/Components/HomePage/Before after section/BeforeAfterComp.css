@@ -14,6 +14,10 @@
 }
 
 .comparison_Component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100vw;
 }
 
@@ -70,7 +74,6 @@
 
   grid-row-gap: 16px;
 
-  height: fit-content;
   width: 100%;
   max-width: 1280px;
 }
@@ -199,7 +202,37 @@
   }
 }
 
-@media screen and (min-width: 360px) {
+@media screen and (max-width: 360px) {
+  .title {
+    font-size: 38.4px;
+    .calloutText {
+      font-size: 38.4px;
+    }
+  }
+
+  .beforeTitle {
+    font-size: 44.8px;
+  }
+
+  .before_textStack,
+  .after_textStack {
+    p {
+      font-size: 16px;
+    }
+  }
+
+  .beforeCardDsplyImg,
+  .afterCardDsplyImg,
+  .before-small-img1,
+  .before-small-img2,
+  .after-small-img1,
+  .after-small-img2 {
+    height: 74.4vw;
+    max-height: 599.43px;
+  }
+}
+
+@media screen and (min-width: 361px) {
   .title {
     font-size: 38.4px;
     .calloutText {
