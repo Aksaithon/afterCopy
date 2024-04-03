@@ -4,9 +4,10 @@ import styles from "./ServiceCard.module.css";
 interface StyleProps {
     containerVrnt: string[];
     textureVrnt: string[];
+    containerImg: string;
 }
 
-const ServiceCard: React.FC<StyleProps> = ({containerVrnt, textureVrnt}) => {
+const ServiceCard: React.FC<StyleProps> = ({containerVrnt, textureVrnt, containerImg}) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -88,7 +89,7 @@ const ServiceCard: React.FC<StyleProps> = ({containerVrnt, textureVrnt}) => {
 
       <img
         className={styles.ServiceImg}
-        src="/Home_Service_Images/ContainerImgA.webp"
+        src={`/Home_Service_Images/${containerImg}.webp`}
         alt=""
       />
     </div>
